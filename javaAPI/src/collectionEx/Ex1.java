@@ -1,56 +1,53 @@
 package collectionEx;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+class Dinosaur{
+	String name;
+	int dangerLevel;
+	
+	public Dinosaur(String name, int dangerLevel){
+		this.name = name;
+		this.dangerLevel = dangerLevel;
+	}
+	public String getName(){
+		return name;
+	}
+	public int getDangerLevel() {
+		return dangerLevel;
+	}
+	
+}
 
 public class Ex1 {
-	private String name;
-	private int age;
-	private List<String>dino1;
-	
-//	public Ex1(String name, int age, List<String> dino) {
-//		this.name = name;
-//		this.age = age;
-//		this.dino= new ArrayList<String>(dino);
-//	}
-	
-	public String getName() {
-		return this.name;
-	}
-	public Ex1(String name, int age, List<String> dino) {
-	super();
-	this.name = name;
-	this.age = age;
-	this.dino1 = dino;
-}
-	public int getAge() {
-		return this.age;
-	}
-//	public int getDino() {
-//		return this.ArrayList<String>(dino);
-	
-	
-	
-
-	
-	public List<String> getDino() {
-		return dino1;
-	}
-	public void setDino(List<String> dino) {
-		this.dino1 = dino;
-	}
-	
 	public static void main(String[] args) {
+		List<Dinosaur> dino = new ArrayList<>();
+		dino.add(new Dinosaur("티라노", 4));
+		dino.add(new Dinosaur("케토톱", 5));
+		dino.add(new Dinosaur("둘리", 1));
+		dino.add(new Dinosaur("천배루스",2));
 		
-		List<String> dino = new ArrayList<>();
-		dino.add("티라노");
-		dino.add("케토톱");
+		Comparator<Dinosaur> com = new Comparator<Dinosaur>() {
+			@Override
+			public int compare(Dinosaur d1, Dinosaur d2) {
+				return Integer.compare(d1.getDangerLevel(), d2.getDangerLevel());
+				}
+			};
+			PriorityQueue<Dinosaur> pq = new PriorityQueue<>(com);
+			
+			 pq.addAll(dino);
+			
+			while(!pq.isEmpty()) {
+				Dinosaur dinosaur = pq.poll();
+				System.out.println("Name : " + dinosaur.getName() + "Danger Lever : " + dinosaur.getDangerLevel());
 		
-		Ex1 ex1 = new Ex1("John", 25, dino);
+		}
 		
-		 System.out.println("Name: " + ex1.getName());
-	        System.out.println("Age: " + ex1.getAge());
-	        System.out.println("Dinosaurs: " + ex1.getDino());
+		
 	}
-}
 
+}
